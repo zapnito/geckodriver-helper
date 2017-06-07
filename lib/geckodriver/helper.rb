@@ -3,7 +3,6 @@ require 'geckodriver/helper/gecko_release_page_parser'
 require 'fileutils'
 require 'rbconfig'
 require 'open-uri'
-require 'archive/zip'
 require 'zlib'
 require 'rubygems/package'
 
@@ -35,12 +34,8 @@ module Geckodriver
     end
 
     def unpack_archive(file)
-      if platform == 'win'
-        unzip(file)
-      else
-        io = ungzip(file)
-        untar(io)
-      end
+      io = ungzip(file)
+      untar(io)
     end
 
     def update
@@ -84,10 +79,6 @@ module Geckodriver
     end
 
     private
-
-    def unzip(zipfile)
-      Archive::Zip.extract(zipfile, '.', :overwrite => :all)
-    end
 
     def ungzip(tarfile)
       z = Zlib::GzipReader.open(tarfile)

@@ -13,10 +13,5 @@ describe Geckodriver::Helper do
       before { allow(helper).to receive(:platform) { 'mac' } }
       it { expect(helper.binary_path).to match(/geckodriver$/) }
     end
-
-    context 'on a windows platform' do
-      before { allow(helper).to receive(:platform) { 'win' } }
-      it { expect(helper.binary_path).to match(/geckodriver\.exe$/) }
-    end
   end
 end
